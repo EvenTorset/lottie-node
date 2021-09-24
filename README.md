@@ -1,5 +1,6 @@
 ### About this fork
-This fork just swaps node-canvas with [skia-canvas](https://github.com/samizdatco/skia-canvas). Setting `rendererSettings` to a canvas doesn't seem to work properly with skia-canvas, but the workaround is simple:```js
+This fork just swaps node-canvas with [skia-canvas](https://github.com/samizdatco/skia-canvas). Setting `rendererSettings` to a canvas doesn't seem to work properly with skia-canvas, but the workaround is simple:
+```js
 // Broken
 lottieNode(data, canvas);
 
