@@ -1,3 +1,15 @@
+### About this fork
+This fork just swaps node-canvas with [skia-canvas](https://github.com/samizdatco/skia-canvas). Setting `rendererSettings` to a canvas doesn't seem to work properly with skia-canvas, but the workaround is simple:```js
+// Broken
+lottieNode(data, canvas);
+
+// Instead, just do this
+lottieNode(data, {
+  context: canvas.getContext("2d"),
+  clearCanvas: true,
+});
+```
+
 ### Important
 [puppeteer-lottie](https://github.com/transitive-bullshit/puppeteer-lottie) is doing the exact same thing as lottie-node, except via pupeteer (Chrome headless) instead of Node-canvas. This is slower, but fully compatible with lottie-web. It also has a neater API for rendering to video which you can use without knowledge of FFMPEG. The author overall provided a lot more work than I did for this library (~50 lines of code) and puppeteer-lottie should be a better option for almost everyone than lottie-node.
 

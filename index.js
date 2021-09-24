@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const { JSDOM } = require("jsdom");
-const { Canvas, loadImage } = require("canvas");
+const { Canvas, Image, loadImage } = require("skia-canvas");
 
 // This is probably not the best way to handle Lottie image loading in Node.
 // JSDOM's wrapped `Image` object should work, but attempts resulted in "Image given has not completed loading"
@@ -22,7 +22,6 @@ const factory = (
 ) => (animationData, rendererSettings, options = {}) => {
   const { window } = new JSDOM("", { pretendToBeVisual: true });
   const { document, navigator } = window;
-  const { Image } = Canvas;
 
   // Avoid jsdom's canvas/image-wrappers because of:
   // * https://github.com/Automattic/node-canvas/issues/487
@@ -54,7 +53,7 @@ const factory = (
     animationData = JSON.parse(fs.readFileSync(animationData, "utf8"));
   }
   // Allow passing canvas instead of rendererSettings, since there isn't much choice for Node.js anyway
-  if (rendererSettings instanceof Canvas) {
+  if (rendererSettings instanceof Canvas) { //TODO: This check doesn't seem to work with skia-canvas
     rendererSettings = {
       context: rendererSettings.getContext("2d"),
       clearCanvas: true,
